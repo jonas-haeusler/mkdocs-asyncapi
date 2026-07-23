@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mkdocs-asyncapi"
+description = "AsyncAPI for MkDocs"
+version = "0.0.0"
+authors = [{ name = "Jonas Häusler", email = "hi@haeusler.dev" }]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = [
+  "mkdocs>=1.6",
+]
+
+[project.urls]
+Homepage = "https://jonas-haeusler.github.io/mkdocs-asyncapi/"
+Repository = "https://github.com/jonas-haeusler/mkdocs-asyncapi"
+
+[tool.setuptools.packages.find]
+include = ["mkdocs_asyncapi*"]
+
+[tool.setuptools.package-data]
+mkdocs_asyncapi = ["assets/*"]
+
+[project.entry-points."mkdocs.plugins"]
+"asyncapi" = "mkdocs_asyncapi.plugin:AsyncApiPlugin"
+
+[tool.ruff]
+line-length = 100
+
+[tool.commitizen]
+name = "cz_customize"
+tag_format = "v$version"
+version_provider = "uv"
+version_files = [
+    "pyproject.toml:version"
+]
+
+[tool.commitizen.customize]
+bump_pattern = '^(feat|fix|ci|build|perf|refactor|chore)'
+bump_map = { feat = "MINOR", fix = "PATCH", ci = "PATCH", build = "PATCH", perf = "PATCH", refactor = "PATCH", 'chore' = "PATCH" }
+schema_pattern = '^(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump|chore)(\(\S+\))?\:?\s.*'
+changelog_pattern = '^(feat|fix|perf|refactor|build|ci|chore)(\(.+\))?!?:'
+commit_parser = '^(?P<change_type>feat|fix|perf|refactor|build|ci|chore)(\((?P<scope>[^()\r\n]+)\))?!?:\s(?P<message>.+)'
+change_type_map = { feat = "Features", fix = "Bug Fixes", perf = "Performance", refactor = "Refactor", build = "Build", ci = "CI", chore = "Chore" }
+change_type_order = ["Features", "Bug Fixes", "Performance", "Refactor", "Build", "CI", "Chore"]
+
+[dependency-groups]
+dev = [
+    "commitizen>=3.31.0",
+    "ruff>=0.14.11",
+]
+test = [
+    "pytest>=8.0",
+]

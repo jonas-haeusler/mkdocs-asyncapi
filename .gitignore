@@ -1,0 +1,29 @@
+# IDE
+.idea
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# MkDocs build output
+site/
+
+.claude
+CLAUDE.md
+
+# Virtual environments
+.venv
+.venv-test
+
+# node_modules
+node_modules/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+
+.DS_Store
