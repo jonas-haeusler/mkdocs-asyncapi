@@ -2,7 +2,6 @@ import logging
 import shutil
 from importlib import resources
 from pathlib import Path
-from typing import Optional
 
 log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 
@@ -35,7 +34,7 @@ class AssetProvider:
         return cls.script_path()
 
     @classmethod
-    def css_url(cls, asset_source: str, version: str, override: Optional[str] = None) -> str:
+    def css_url(cls, asset_source: str, version: str, override: str | None = None) -> str:
         """Site-relative path (bundled), unpkg URL (cdn), or a user-provided override."""
         if override:
             return override

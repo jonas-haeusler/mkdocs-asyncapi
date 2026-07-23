@@ -1,7 +1,6 @@
 import logging
 import posixpath
 from pathlib import Path
-from typing import Optional
 
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
@@ -72,11 +71,11 @@ class AsyncApiPlugin(BasePlugin):
         if self.pages_with_component and self.config["asset_source"] == "bundled":
             AssetProvider.copy_bundle(Path(config["site_dir"]))
 
-    def _resolve_src(self, src: Optional[str], page) -> Optional[str]:
+    def _resolve_src(self, src: str | None, page) -> str | None:
         """Resolve a component's src to a page-relative URL, passing remote URLs through."""
         if not src:
             return src
-        if src.startswith("http://") or src.startswith("https://"):
+        if src.startswith(("http://", "https://")):
             return src
 
         page_dir = posixpath.dirname(page.file.src_uri)
@@ -91,7 +90,7 @@ class AsyncApiPlugin(BasePlugin):
             return src
         return get_relative_url(file.url, page.url)
 
-    def _resolve_css(self, page, inline_override: Optional[str]) -> str:
+    def _resolve_css(self, page, inline_override: str | None) -> str:
         """Resolve the stylesheet for a page. Precedence: inline > global config > bundled/cdn default."""
         asset_source = self.config["asset_source"]
         override = inline_override or self.config["css_import_path"]

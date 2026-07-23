@@ -3,7 +3,6 @@ import logging
 import re
 from dataclasses import dataclass, field
 from html import escape
-from typing import Optional
 
 log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 
@@ -12,10 +11,10 @@ log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 class ComponentOptions:
     """Options parsed from an <asyncapi-component> tag."""
 
-    src: Optional[str]
+    src: str | None
     config: dict = field(default_factory=dict)
-    css_import_path: Optional[str] = None
-    schema_fetch_options: Optional[str] = None
+    css_import_path: str | None = None
+    schema_fetch_options: str | None = None
 
 
 class AsyncApiParser:
@@ -51,10 +50,12 @@ class AsyncApiParser:
             inline_config = None
 
         schema_fetch_options = attrs.get("schemaFetchOptions")
-        if schema_fetch_options is not None:
-            # Keep the original string; we validate only to warn on malformed JSON.
-            if cls._parse_json_attr("schemaFetchOptions", schema_fetch_options) is None:
-                schema_fetch_options = None
+        # Keep the original string; we validate only to warn on malformed JSON.
+        if (
+            schema_fetch_options is not None
+            and cls._parse_json_attr("schemaFetchOptions", schema_fetch_options) is None
+        ):
+            schema_fetch_options = None
 
         return ComponentOptions(
             src=attrs.get("src"),
@@ -64,7 +65,7 @@ class AsyncApiParser:
         )
 
     @staticmethod
-    def _parse_json_attr(name: str, raw: Optional[str]):
+    def _parse_json_attr(name: str, raw: str | None):
         """Parse a JSON attribute value; warn and return None if absent or not valid JSON."""
         if raw is None:
             return None
@@ -86,7 +87,7 @@ class AsyncApiParser:
         return result
 
     @staticmethod
-    def to_html(schema_url: Optional[str], opts: ComponentOptions, css_import_path: str) -> str:
+    def to_html(schema_url: str | None, opts: ComponentOptions, css_import_path: str) -> str:
         """Render the resolved options as an <asyncapi-component> web component tag."""
         if not schema_url:
             log.warning("mkdocs-asyncapi: <asyncapi-component> is missing a 'src' attribute")
