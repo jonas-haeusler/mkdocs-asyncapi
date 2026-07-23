@@ -51,7 +51,7 @@ change_type_order = ["Features", "Bug Fixes", "Performance", "Refactor", "Build"
 [dependency-groups]
 dev = [
     "commitizen>=3.31.0",
-    "ruff>=0.14.11",
+    "ruff==0.16.0",
 ]
 test = [
     "pytest>=8.0",
