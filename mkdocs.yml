@@ -1,0 +1,37 @@
+site_name: AsyncAPI for MkDocs
+repo_url: https://github.com/jonas-haeusler/mkdocs-asyncapi
+site_url: https://jonas-haeusler.github.io/mkdocs-asyncapi/
+repo_name: mkdocs-asyncapi
+edit_uri: edit/main/docs/
+
+# Snippet-only files, included via --8<-- but not meant as standalone pages.
+exclude_docs: |
+  usage.md
+  remote-usage.md
+  config-usage.md
+
+theme:
+  name: material
+  features:
+    - content.action.edit
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - asyncapi
+
+markdown_extensions:
+  - pymdownx.superfences:
+  - pymdownx.snippets:
+      base_path: docs
+      check_paths: true
+  - pymdownx.details:
+  - admonition:
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - "Home": "index.md"
+  - "Sample": "sample/index.md"

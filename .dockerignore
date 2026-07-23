@@ -1,0 +1,6 @@
+*
+!mkdocs_asyncapi/
+!pyproject.toml
+!README.md
+!Dockerfile
+!requirements-docs.txt

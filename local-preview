@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eou pipefail
+
+IMAGE_NAME="mkdocs-asyncapi"
+docker build -t $IMAGE_NAME .
+docker run --rm \
+  -p 8700:8000 \
+  -v "$(pwd):/docs" \
+  "$IMAGE_NAME"
