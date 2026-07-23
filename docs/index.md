@@ -26,6 +26,11 @@ Controls where the web component JS/CSS are loaded from. Possible values:
   fully offline.
 - `cdn`: loads from [unpkg.com](https://unpkg.com), pinned to [version](#version).
 
+!!! tip "Prefer `bundled`"
+    Only `bundled` assets are post-processed (`rem` → fixed `px`), which keeps
+    component sizing correct under themes that scale the root font-size (e.g.
+    mkdocs-material). `cdn` assets skip this step, so their scaling may be off.
+
 ```yaml
 plugins:
   - search
@@ -59,7 +64,7 @@ Individual components can override the global config (see [Options](#options) be
 
 Overrides the stylesheet loaded by every component, instead of the vendored (or CDN) default. Use
 this when you want a custom-themed stylesheet — e.g. matching your site's brand colors — built from
-a copy of [`default.css`](https://github.com/asyncapi/asyncapi-react/blob/master/library/styles/default.css).
+a copy of [`default.css`](https://github.com/asyncapi/asyncapi-react/blob/v3.1.4/library/src/styles/default.css).
 The value is used verbatim (unlike `src`, it is **not** resolved relative to the current page), so
 point it at a fully-qualified URL or a site-root-absolute path:
 
