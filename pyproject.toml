@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mkdocs-asyncapi"
 description = "AsyncAPI for MkDocs"
-version = "0.0.0"
+version = "0.1.0"
 authors = [{ name = "Jonas Häusler", email = "hi@haeusler.dev" }]
 readme = "README.md"
 license = "MIT"
